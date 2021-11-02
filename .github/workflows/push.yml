@@ -16,7 +16,7 @@ jobs:
       - name: Linting Server and Client
         run: docker exec client yarn lint && docker exec server yarn lint
       - name: Run Test on Server and Client
-        run: docker exec client CI=true yarn test && docker exec server yarn test
+        run: docker exec -e CI=true client yarn test && docker exec server yarn test
       - name: Stop containers
         if: always()
         run: docker-compose down
