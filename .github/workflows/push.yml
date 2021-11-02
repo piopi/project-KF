@@ -1,0 +1,13 @@
+name: docker-compose-actions-workflow
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: docker-compose up -d
+      - name: Linting Server and Client
+        run: docker-compose exec client yarn lint && docker-compose exec server yarn lint
+      - name: Run Test on Server and Client
+        run: docker-compose exec client CI=true yarn test && docker-compose exec server yarn test
