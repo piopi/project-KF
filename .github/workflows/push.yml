@@ -12,11 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
-        run: docker-compose up -d --build
+        run: docker-compose up -d
       - name: Linting Server and Client
         run: docker exec client yarn lint && docker exec server yarn lint
       - name: Run Test on Server and Client
         run: docker exec client CI=true yarn test && docker exec server yarn test
       - name: Stop containers
         if: always()
-        run: docker-compose -f "docker-compose.yml" down
+        run: docker-compose down
