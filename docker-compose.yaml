@@ -1,0 +1,53 @@
+version: "3"
+services:
+  server:
+    build: ./server
+    container_name: server
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://user:pass@postgres:5432/dashboard
+      CHOKIDAR_USEPOLLING: "true" # Allow hot reloading in container
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./server:/app/
+      - /app/node_modules
+    container_name: server
+    networks:
+      - webapp
+      - database
+
+  postgres:
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: user
+      POSTGRES_DB: dashboard
+    container_name: postgres
+    networks:
+      - database
+
+  client:
+    build:
+      context: ./client
+    depends_on:
+      - server
+    networks:
+      - webapp
+    ports:
+      - 3000:3000
+    container_name: client
+    environment:
+      CHOKIDAR_USEPOLLING: "true" # Allow hot reloading in container
+    volumes:
+      - ./client:/app/
+      - /app/node_modules
+
+networks:
+  webapp:
+    driver: bridge
+  database:
+    driver: bridge
