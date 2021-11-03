@@ -36,6 +36,7 @@
   "scripts": {
     "build": "tsc",
     "start": "nodemon src/server.ts",
+    "seed": "npx ts-node src/seed.ts",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "lint": "eslint src/**/*.ts",
