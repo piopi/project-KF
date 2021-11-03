@@ -9,6 +9,9 @@ At the root of the folder, run the following command:
 ```
 docker-compose up -d
 ```
+You access the react app at: `http://localhost:3000`
+And the server at: `http://localhost:3001`
+
 ## CI/CD Pipeline with Github Actions
 
 Stages:
