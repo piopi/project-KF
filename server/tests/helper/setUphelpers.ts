@@ -12,8 +12,7 @@ export default class SetUpHelpers {
       return this.appInstance;
     }
     const app: App = new App();
-    await app.init();
-    this.appInstance = app.express;
+    this.appInstance = app.getApp();
     return this.appInstance;
   }
 }
