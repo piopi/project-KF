@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Heading, Box, Grid, useBreakpointValue, Button, Flex, useColorModeValue } from '@chakra-ui/react';
+import { Heading, Box, Grid, Button, Flex, useColorModeValue } from '@chakra-ui/react';
 import Service from '../../components/Service/Service';
 
 interface ServiceType {
@@ -7,7 +7,15 @@ interface ServiceType {
   src: string;
 }
 const ServicesContainer = () => {
-  const increment = useBreakpointValue({ base: 2, md: 6, lg: 8, xl: 11, '2xl': 15 }) || 0;
+  const [width, setWidth] = useState(window.innerWidth);
+  const updateDimensions = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+  const increment = Math.floor(width / 128);
   const [len, setLen] = useState(0);
   const [display, setDisplay] = useState<ServiceType[]>([]);
   const services = useRef<ServiceType[]>([]);

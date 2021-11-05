@@ -1,12 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Heading, Box, Grid, useBreakpointValue, Button, Flex, useColorModeValue } from '@chakra-ui/react';
+import { Heading, Box, Grid, Button, Flex, useColorModeValue } from '@chakra-ui/react';
 import Visualization from '../../components/Visualization/Visualization';
 
 interface ServiceType {
   name: string;
 }
 const VisualizationContainer = () => {
-  const increment = useBreakpointValue({ base: 1, md: 3, lg: 4, xl: 6, '2xl': 7 }) || 0;
+  const [width, setWidth] = useState(window.innerWidth);
+  const updateDimensions = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+  const increment = Math.floor(width / 255);
   const [len, setLen] = useState(0);
   const [display, setDisplay] = useState<ServiceType[]>([]);
   const services = useRef<ServiceType[]>([]);
