@@ -68,9 +68,9 @@ describe('Api integration tests', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', 'application/json; charset=utf-8')
       .expect((res: request.Response) => {
-        expect(res.body[0]).toEqual(
+        expect(res.body).toEqual(
           expect.objectContaining({
-            data: expect.any(Array(Number)),
+            data: expect.any(Array),
             dataEntryName: expect.any(String),
             dataCurrency: expect.any(String),
           }),
