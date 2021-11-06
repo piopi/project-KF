@@ -36,8 +36,9 @@ DataEntry.init(
   },
 );
 
-async function retrieveAllDataEntries(dataId: number) {
+async function retrieveAllDataEntries(dataId: number, limit: number) {
   const DataEntries = await DataEntry.findAll({
+    limit,
     where: {
       dataId,
     },

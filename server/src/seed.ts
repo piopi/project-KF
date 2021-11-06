@@ -43,6 +43,18 @@ async function seed() {
     name: 'Slack',
     serviceIconUrl: 'https://cdn.worldvectorlogo.com/logos/slack-new-logo.svg',
   });
+  const github = await Service.create({
+    name: 'GitHub',
+    serviceIconUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg',
+  });
+  const amazon = await Service.create({
+    name: 'Amazon',
+    serviceIconUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4a/Amazon_icon.svg',
+  });
+  const gmail = await Service.create({
+    name: 'Gmail',
+    serviceIconUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg',
+  });
   const insta = await Service.create({
     name: 'Instagram',
     serviceIconUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/96/Instagram.svg',
@@ -54,7 +66,7 @@ async function seed() {
   });
   const data2 = await DataSource.create({
     serviceId: twitter.serviceId,
-    dataName: 'Number of tweets',
+    dataName: 'This is a long text to test the ellipsis when the text overflows from the container ',
     dataCurrency: '',
   });
   const data3 = await DataSource.create({
@@ -77,14 +89,28 @@ async function seed() {
     dataName: 'Number of Likes',
     dataCurrency: '',
   });
-
+  const data7 = await DataSource.create({
+    serviceId: github.serviceId,
+    dataName: 'PR',
+    dataCurrency: '',
+  });
+  const data8 = await DataSource.create({
+    serviceId: amazon.serviceId,
+    dataName: 'AMZ',
+    dataCurrency: '$',
+  });
+  const data9 = await DataSource.create({
+    serviceId: gmail.serviceId,
+    dataName: 'Mails',
+    dataCurrency: '',
+  });
   const dates = getDates(new Date(2013, 10, 22), new Date(2013, 11, 25));
   await Promise.all(
     dates.map(async (date) => {
       await DataEntry.create({
         dataId: data1.dataId,
         dataEntryName: 'Ad Profit',
-        dataValue: (Math.random() * (500.6 - 10.5) + 10.5).toFixed(2),
+        dataValue: (Math.random() * (500.6 - 200) + 200).toFixed(2),
         date,
       });
     }),
@@ -104,7 +130,7 @@ async function seed() {
       await DataEntry.create({
         dataId: data3.dataId,
         dataEntryName: 'DL',
-        dataValue: (Math.random() * (500.6 - 10.5) + 10.5).toFixed(0),
+        dataValue: (Math.random() * (20000 - 11000) + 11000).toFixed(0),
         date,
       });
     }),
@@ -135,6 +161,36 @@ async function seed() {
         dataId: data6.dataId,
         dataEntryName: 'Likes',
         dataValue: (Math.random() * (2000 - 10) + 10).toFixed(0),
+        date,
+      });
+    }),
+  );
+  await Promise.all(
+    dates.map(async (date) => {
+      await DataEntry.create({
+        dataId: data7.dataId,
+        dataEntryName: 'Pull Requests',
+        dataValue: (Math.random() * (2000 - 1000) + 1000).toFixed(0),
+        date,
+      });
+    }),
+  );
+  await Promise.all(
+    dates.map(async (date) => {
+      await DataEntry.create({
+        dataId: data8.dataId,
+        dataEntryName: 'Sales',
+        dataValue: (Math.random() * (1500 - 500) + 500).toFixed(2),
+        date,
+      });
+    }),
+  );
+  await Promise.all(
+    dates.map(async (date) => {
+      await DataEntry.create({
+        dataId: data9.dataId,
+        dataEntryName: 'Shares',
+        dataValue: (Math.random() * (10000000 - 9000000) + 9000000).toFixed(0),
         date,
       });
     }),

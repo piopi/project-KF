@@ -49,10 +49,9 @@ const ChartLine = ({ data }: Props) => {
   const bgColor = useColorModeValue('rgba(83,167,208, 1)', 'rgb(255, 255, 255)');
   const canvas = createCanvas(200, 200);
   const ctx = canvas.getContext('2d');
-  const gradient = ctx.createLinearGradient(0, 0, 0, 450);
-  gradient.addColorStop(0, 'rgba(200,226,239, 0.7)');
-  gradient.addColorStop(0.45, 'rgba(253,254,255, 0.2)');
-  gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+  const gradient = ctx.createLinearGradient(0, 0, 0, 100);
+  gradient.addColorStop(0, 'rgba(93, 213, 246, 0.3)');
+  gradient.addColorStop(1, 'rgba(93, 213, 246, 0)');
   let labels: string[] = [];
   data.forEach((element, i) => {
     labels = [...labels, `${i}`];
@@ -69,7 +68,7 @@ const ChartLine = ({ data }: Props) => {
       },
     ],
   };
-  return <Line id="chart" options={option} width="110%" height="100%" data={output} />;
+  return <Line id="chart" options={option} width="100%" height="100%" data={output} />;
 };
 
 export default ChartLine;

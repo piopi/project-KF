@@ -1,6 +1,10 @@
 import { extendTheme } from '@chakra-ui/react';
 
 const overrides = {
+  fonts: {
+    heading: 'Open Sans, sans-serif',
+    body: 'Open Sans, sans-serif',
+  },
   colors: {
     bg: {
       100: '#f8f8f8',

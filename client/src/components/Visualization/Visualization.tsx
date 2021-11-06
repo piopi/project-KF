@@ -38,6 +38,7 @@ const Visualization = ({ name, currency, data }: Props) => {
         templateRows="repeat(2, 1fr)"
         templateColumns="repeat(1, 1fr)"
         sx={{ boxShadow: ' 0 0 8px #ccc' }}
+        _hover={{ boxShadow: ' 0 0 15px #999999' }}
         bg={useColorModeValue('white', 'gray.700')}
         height="150px"
         width="220px"
@@ -65,7 +66,7 @@ const Visualization = ({ name, currency, data }: Props) => {
               {increase >= 0 ? <ArrowUpIcon /> : <ArrowDownIcon />}
               {`${increase}%`}
             </Text>
-            <Text color="#ccc" fontSize="0.7rem" isTruncated>
+            <Text color="#ccc" fontSize="0.6rem" isTruncated>
               vs previous {data.length} days
             </Text>
           </Box>

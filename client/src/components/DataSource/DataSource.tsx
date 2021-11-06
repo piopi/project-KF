@@ -10,6 +10,7 @@ const DataSource = ({ name }: Props) => (
     <Link href="#datasources" title={name}>
       <Flex
         sx={{ boxShadow: ' 0 0 8px #ccc' }}
+        _hover={{ boxShadow: ' 0 0 15px #999999' }}
         bg={useColorModeValue('white', 'gray.700')}
         height="90px"
         width="220px"

@@ -1,12 +1,26 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Heading, Box, Grid, Button, Flex, useColorModeValue } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { Heading, Box, Grid, Button, Flex, useColorModeValue, Spinner } from '@chakra-ui/react';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import Service from '../../components/Service/Service';
+import { fetchServices } from './servicesSlice';
 
 interface ServiceType {
+  serviceId: number;
   name: string;
-  src: string;
+  serviceIconUrl: string;
 }
 const ServicesContainer = () => {
+  const services = useAppSelector((state) => state.services.data);
+  const status = useAppSelector((state) => state.services.status);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const loadServices = async () => {
+      await dispatch(fetchServices());
+    };
+    loadServices();
+  }, [dispatch]);
+
   const [width, setWidth] = useState(window.innerWidth);
   const updateDimensions = () => {
     setWidth(window.innerWidth);
@@ -15,48 +29,40 @@ const ServicesContainer = () => {
     window.addEventListener('resize', updateDimensions);
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
+  // Calculate the number of column to display depending on the screen size
   const increment = Math.floor(width / 128);
   const [len, setLen] = useState(0);
   const [display, setDisplay] = useState<ServiceType[]>([]);
-  const services = useRef<ServiceType[]>([]);
   const btnBgColor = useColorModeValue('bg.100', 'gray.900');
-  useEffect(() => {
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < 30; i++) {
-      services.current = [
-        ...services.current,
-        {
-          name: 'Facebook',
-          src: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Facebook_icon_2013.svg',
-        },
-      ];
-    }
-  }, []);
+
   const incLen = () => {
-    setLen(len + increment > services.current.length ? services.current.length : len + increment);
+    setLen(len + increment > services.length ? services.length : len + increment);
   };
 
   /**
    * Fill the array that handle the display of Services
    */
-  // const fillDisplay = () => {};
   useEffect(() => {
-    setDisplay([...services.current.slice(0, len)]);
-  }, [len]);
+    setDisplay([...services.slice(0, len)]);
+  }, [len, services]);
   useEffect(() => {
-    setLen(increment > services.current.length ? services.current.length : increment);
-  }, [increment]);
+    setLen(increment > services.length ? services.length : increment);
+  }, [increment, services.length]);
   return (
     <Box mt="6rem" mx="20px">
-      <Heading id="services" as="h1" fontSize="1.2rem">
-        Recommended services
-      </Heading>
+      {status === 'idle' ? (
+        <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="xl" />
+      ) : (
+        <Heading id="services" as="h1" fontSize="1.2rem">
+          Recommended services
+        </Heading>
+      )}
       <Grid templateColumns="repeat(auto-fill,100px)" gap={6}>
         {display.map((elem) => (
-          <Service name={elem.name} src={elem.src} />
+          <Service name={elem.name} src={elem.serviceIconUrl} />
         ))}
       </Grid>
-      {len !== services.current.length && (
+      {len !== services.length && (
         <Flex alignItems="end" justifyContent="flex-end">
           <Button
             border="1px"

@@ -38,5 +38,12 @@ async function retrieveAllDataSources(serviceId: number) {
   });
   return dataSources;
 }
-
-export { DataSource, retrieveAllDataSources };
+async function retrieveADataSource(dataId: number) {
+  const dataSources = await DataSource.findOne({
+    where: {
+      dataId,
+    },
+  });
+  return dataSources;
+}
+export { DataSource, retrieveAllDataSources, retrieveADataSource };
