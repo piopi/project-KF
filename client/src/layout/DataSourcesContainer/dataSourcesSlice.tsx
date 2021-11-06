@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-interface DataSource {
+export interface DataSource {
   dataId: number;
   dataName: string;
   dataCurrency: string;

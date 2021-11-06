@@ -1,27 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Heading, Box, Grid, Button, Flex, useColorModeValue, Spinner } from '@chakra-ui/react';
-import { useAppDispatch, useAppSelector } from '../../store/store';
+import { useAppSelector } from '../../store/store';
 import Service from '../../components/Service/Service';
-import { fetchServices } from './servicesSlice';
+import { Service as ServiceType } from './servicesSlice';
 
-interface ServiceType {
-  serviceId: number;
-  name: string;
-  serviceIconUrl: string;
-}
 const ServicesContainer = () => {
+  const btnBgColor = useColorModeValue('bg.100', 'gray.900');
   const services = useAppSelector((state) => state.services.data);
   const status = useAppSelector((state) => state.services.status);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const loadServices = async () => {
-      await dispatch(fetchServices());
-    };
-    loadServices();
-  }, [dispatch]);
 
   const [width, setWidth] = useState(window.innerWidth);
+  const [length, setLength] = useState(0);
+  const [display, setDisplay] = useState<ServiceType[]>([]);
+  // Calculate the number of column to display depending on the screen size
   const updateDimensions = () => {
     setWidth(window.innerWidth);
   };
@@ -29,25 +20,21 @@ const ServicesContainer = () => {
     window.addEventListener('resize', updateDimensions);
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
-  // Calculate the number of column to display depending on the screen size
   const increment = Math.floor(width / 128);
-  const [len, setLen] = useState(0);
-  const [display, setDisplay] = useState<ServiceType[]>([]);
-  const btnBgColor = useColorModeValue('bg.100', 'gray.900');
-
-  const incLen = () => {
-    setLen(len + increment > services.length ? services.length : len + increment);
-  };
 
   /**
-   * Fill the array that handle the display of Services
+   * Fill the array that handle the display of services
+   * It fill it incrementaly and depending of the screen size.
    */
   useEffect(() => {
-    setDisplay([...services.slice(0, len)]);
-  }, [len, services]);
+    setDisplay([...services.slice(0, length)]);
+  }, [length, services]);
   useEffect(() => {
-    setLen(increment > services.length ? services.length : increment);
+    setLength(increment > services.length ? services.length : increment);
   }, [increment, services.length]);
+  const increaseLength = () => {
+    setLength(length + increment > services.length ? services.length : length + increment);
+  };
   return (
     <Box mt="6rem" mx="20px">
       {status === 'idle' ? (
@@ -62,7 +49,7 @@ const ServicesContainer = () => {
           <Service name={elem.name} src={elem.serviceIconUrl} />
         ))}
       </Grid>
-      {len !== services.length && (
+      {display.length !== services.length && (
         <Flex alignItems="end" justifyContent="flex-end">
           <Button
             border="1px"
@@ -72,7 +59,7 @@ const ServicesContainer = () => {
             fontWeight="700"
             fontSize={14}
             mr={5}
-            onClick={() => incLen()}
+            onClick={() => increaseLength()}
             mt={4}
             bg={btnBgColor}
           >

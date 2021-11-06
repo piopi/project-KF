@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-interface Visualization {
+export interface Visualization {
   dataEntryName: string;
   data: number[];
   dataCurrency: string;

@@ -43,6 +43,9 @@ const option = {
   },
   plugins: {
     legend: { display: false },
+    tooltip: {
+      enabled: false,
+    },
   },
 };
 const ChartLine = ({ data }: Props) => {
@@ -51,7 +54,7 @@ const ChartLine = ({ data }: Props) => {
   const ctx = canvas.getContext('2d');
   const gradient = ctx.createLinearGradient(0, 0, 0, 100);
   gradient.addColorStop(0, 'rgba(93, 213, 246, 0.3)');
-  gradient.addColorStop(1, 'rgba(93, 213, 246, 0)');
+  gradient.addColorStop(0.7, 'rgba(93, 213, 246, 0)');
   let labels: string[] = [];
   data.forEach((element, i) => {
     labels = [...labels, `${i}`];

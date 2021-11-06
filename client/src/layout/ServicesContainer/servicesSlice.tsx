@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-interface Service {
+export interface Service {
   serviceId: number;
   name: string;
   serviceIconUrl: string;

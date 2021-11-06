@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Heading, Box, Grid, Button, Flex, useColorModeValue, Spinner } from '@chakra-ui/react';
 import Visualization from '../../components/Visualization/Visualization';
 import { useAppSelector } from '../../store/store';
+import { Visualization as VisualizationType } from './visualizationSlice';
 
-interface VisualizationType {
-  dataEntryName: string;
-  data: number[];
-  dataCurrency: string;
-}
 const VisualizationContainer = () => {
-  const datasources = useAppSelector((state) => state.dataSources.data);
+  const btnBgColor = useColorModeValue('bg.100', 'gray.900');
   const visualizations = useAppSelector((state) => state.visualizations.data);
   const status = useAppSelector((state) => state.visualizations.status);
-  useEffect(() => {}, [datasources]);
+
   const [width, setWidth] = useState(window.innerWidth);
+  const [length, setLength] = useState(0);
+  const [display, setDisplay] = useState<VisualizationType[]>([]);
+
+  // Calculate the number of column to display depending on the screen size
   const updateDimensions = () => {
     setWidth(window.innerWidth);
   };
@@ -21,26 +21,22 @@ const VisualizationContainer = () => {
     window.addEventListener('resize', updateDimensions);
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
-  // Calculate the number of column to display depending on the screen size
   const increment = Math.floor(width / 265);
-  const [len, setLen] = useState(0);
-  const [display, setDisplay] = useState<VisualizationType[]>([]);
-
-  const btnBgColor = useColorModeValue('bg.100', 'gray.900');
-
-  const incLen = () => {
-    setLen(len + increment > visualizations.length ? visualizations.length : len + increment);
-  };
 
   /**
    * Fill the array that handle the display of visualizations
+   * It fill it incrementaly and depending of the screen size.
    */
   useEffect(() => {
-    setDisplay([...visualizations.slice(0, len)]);
-  }, [len, visualizations]);
+    setDisplay([...visualizations.slice(0, length)]);
+  }, [length, visualizations]);
   useEffect(() => {
-    setLen(increment > visualizations.length ? visualizations.length : increment);
+    setLength(increment > visualizations.length ? visualizations.length : increment);
   }, [increment, visualizations.length]);
+  const increaseLength = () => {
+    setLength(length + increment > visualizations.length ? visualizations.length : length + increment);
+  };
+
   return (
     <Box mt="6rem" mx="20px">
       {status === 'idle' ? (
@@ -56,7 +52,7 @@ const VisualizationContainer = () => {
         ))}
       </Grid>
 
-      {len !== visualizations.length && (
+      {display.length !== visualizations.length && (
         <Flex alignItems="end" justifyContent="flex-end">
           <Button
             border="1px"
@@ -66,7 +62,7 @@ const VisualizationContainer = () => {
             fontWeight="700"
             fontSize={14}
             mr={5}
-            onClick={() => incLen()}
+            onClick={() => increaseLength()}
             mt={4}
             bg={btnBgColor}
           >

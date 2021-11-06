@@ -8,29 +8,30 @@ interface Props {
   currency: string;
   data: number[];
 }
-
-const Visualization = ({ name, currency, data }: Props) => {
-  // format Number to '3,500' or '3.5K' depending of the sign
-  const formatNumber = (num: number, sign: string) =>
-    sign === '$'
-      ? new Intl.NumberFormat('en-US', { style: 'decimal' }).format(num)
-      : new Intl.NumberFormat('en-GB', {
-          notation: 'compact',
-          compactDisplay: 'short',
-        }).format(num);
-  const percIncrease = (a: number, b: number) => {
-    let percent;
-    if (b !== 0) {
-      if (a !== 0) {
-        percent = ((b - a) / a) * 100;
-      } else {
-        percent = b * 100;
-      }
+// ----------------Helper Functions-------------------------------
+const percIncrease = (a: number, b: number) => {
+  let percent;
+  if (b !== 0) {
+    if (a !== 0) {
+      percent = ((b - a) / a) * 100;
     } else {
-      percent = -a * 100;
+      percent = b * 100;
     }
-    return Math.floor(percent);
-  };
+  } else {
+    percent = -a * 100;
+  }
+  return Math.floor(percent);
+};
+// format Number to '3,500' or '3.5K' depending of the sign
+const formatNumber = (num: number, sign: string) =>
+  sign === '$'
+    ? new Intl.NumberFormat('en-US', { style: 'decimal' }).format(num)
+    : new Intl.NumberFormat('en-GB', {
+        notation: 'compact',
+        compactDisplay: 'short',
+      }).format(num);
+//----------------------------------------------------------------
+const Visualization = ({ name, currency, data }: Props) => {
   const increase = percIncrease(data[0], data[data.length - 1]);
   return (
     <Flex my={5} w="fit-content">
@@ -61,7 +62,7 @@ const Visualization = ({ name, currency, data }: Props) => {
               </Text>
             </Text>
           </Box>
-          <Box pt="25px" textAlign="center">
+          <Box pt="40px" textAlign="center">
             <Text top="2" right="0" fontWeight="500" fontSize="1.1rem" color={increase >= 0 ? 'green.400' : 'red.500'}>
               {increase >= 0 ? <ArrowUpIcon /> : <ArrowDownIcon />}
               {`${increase}%`}

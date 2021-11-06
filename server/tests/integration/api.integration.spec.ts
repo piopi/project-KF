@@ -70,14 +70,9 @@ describe('Api integration tests', () => {
       .expect((res: request.Response) => {
         expect(res.body[0]).toEqual(
           expect.objectContaining({
-            dataEntryId: expect.any(Number),
+            data: expect.any(Array(Number)),
             dataEntryName: expect.any(String),
-            dataValue: expect.any(Number),
-            date: expect.any(String),
-            createdAt: expect.any(String),
-            updatedAt: expect.any(String),
-            dataId: expect.any(Number),
-            DataSourceDataId: null,
+            dataCurrency: expect.any(String),
           }),
         );
       })
