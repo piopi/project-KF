@@ -14,6 +14,7 @@ const Service = ({ name, src }: Props) => (
     <Link href="#services" title={name}>
       <Flex
         sx={{ boxShadow: ' 0 0 8px #ccc' }}
+        _hover={{ boxShadow: ' 0 0 15px #999999' }}
         bg={useColorModeValue('white', 'gray.700')}
         borderRadius="50%"
         height="100px"

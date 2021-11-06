@@ -1,5 +1,5 @@
 import { Service, retrieveAllServices } from './Service';
-import { DataSource, retrieveAllDataSources } from './DataSource';
+import { DataSource, retrieveAllDataSources, retrieveADataSource } from './DataSource';
 import { DataEntry, retrieveAllDataEntries } from './DataEntry';
 
 // Define database relationships
@@ -12,4 +12,12 @@ DataEntry.belongsTo(DataSource, {
 });
 DataSource.hasMany(DataEntry);
 
-export { Service, DataSource, DataEntry, retrieveAllDataEntries, retrieveAllDataSources, retrieveAllServices };
+export {
+  Service,
+  DataSource,
+  DataEntry,
+  retrieveAllDataEntries,
+  retrieveAllDataSources,
+  retrieveAllServices,
+  retrieveADataSource,
+};

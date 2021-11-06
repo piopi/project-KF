@@ -22,4 +22,4 @@ Stages:
 ## Api enpoints
 * **Get all services** : `GET /api/services/`
 * **Get all data sources of a service** : `GET /api/datasources?serviceId=:id`
-* **Get all data entries of a data source** : `GET /api/dataentries?dataId=:id`
+* **Get all data entries of a data source** : `GET /api/dataentries?dataId=:id&limit=:number`
