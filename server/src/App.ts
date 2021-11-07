@@ -1,6 +1,7 @@
 import * as cors from 'cors';
 import * as express from 'express';
 import * as helmet from 'helmet';
+import * as path from 'path';
 import StatusRouter from './routes/api/StatusRouter';
 import ServiceRouter from './routes/api/ServiceRouter';
 import DataSource from './routes/api/DataSourceRouter';
@@ -16,7 +17,6 @@ export default class App {
     this.app = express();
     this.middleware();
     this.routerConfig();
-    // this.dbConnect();
   }
 
   private routerConfig() {
@@ -24,6 +24,8 @@ export default class App {
     this.app.use('/api', new ServiceRouter().getRouter());
     this.app.use('/api', new DataSource().getRouter());
     this.app.use('/api', new DataEntryRouter().getRouter());
+    const buildPath = path.join(__dirname, '..', 'build');
+    this.app.use(express.static(buildPath));
     this.app.use((req, res, next) => {
       next(res.status(404).send('404 Page not found'));
     });
@@ -42,7 +44,7 @@ export default class App {
    * Connect different middlewares.
    */
   private middleware(): void {
-    this.app.use(helmet());
+    this.app.use(helmet({ contentSecurityPolicy: false }));
     this.app.use(express.json({ limit: '100mb' }));
     this.app.use(express.urlencoded({ limit: '100mb', extended: true }));
     this.app.use(cors());

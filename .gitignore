@@ -3,6 +3,7 @@ node_modules/
 */yarn.lock
 */node_modules
 */coverage
+*/build
 # production
 /build/
 # misc

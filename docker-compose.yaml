@@ -42,6 +42,7 @@ services:
     container_name: client
     environment:
       CHOKIDAR_USEPOLLING: "true" # Allow hot reloading in container
+      REACT_APP_API_URL: "http://localhost:3001"
     volumes:
       - ./client:/app
       - /app/node_modules

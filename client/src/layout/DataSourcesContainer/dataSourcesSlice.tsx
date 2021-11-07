@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+const url = process.env.REACT_APP_API_URL || '';
 export interface DataSource {
   dataId: number;
   dataName: string;
@@ -11,7 +12,7 @@ const initialState = {
   status: 'idle',
 };
 export const fetchDataSource = createAsyncThunk('dataSources/fetchdataSources', async (serviceId: number) => {
-  const response = await fetch(`http://localhost:3001/api/datasources?serviceId=${serviceId}`);
+  const response = await fetch(`${url}/api/datasources?serviceId=${serviceId}`);
   const data = (await response.json()) as DataSource[];
   return data;
 });
