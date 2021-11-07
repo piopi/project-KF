@@ -20,8 +20,10 @@ const SearchElement = ({ name, type }: Props) => {
       }}
       justifyContent="space-between"
     >
-      <Text width="50%">{name}</Text>
-      <Text color={useColorModeValue('bg.300', 'bg.200')} fontSize="sm">
+      <Text width="50%" fontSize={['0.7rem', '1rem']}>
+        {name}
+      </Text>
+      <Text color={useColorModeValue('bg.300', 'bg.200')} fontSize={['0.7rem', '1rem']}>
         {type}
       </Text>
     </Flex>
