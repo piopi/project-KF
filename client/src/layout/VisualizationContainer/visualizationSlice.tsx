@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+const url = process.env.REACT_APP_API_URL || '';
 export interface Visualization {
   dataEntryName: string;
   data: number[];
@@ -13,7 +14,7 @@ const initialState = {
 export const fetchVisualization = createAsyncThunk(
   'visualizations/fetchVisualization',
   async (dataSourceId: number) => {
-    const response = await fetch(`http://localhost:3001/api/dataentries?dataId=${dataSourceId}&limit=10`);
+    const response = await fetch(`${url}/api/dataentries?dataId=${dataSourceId}&limit=10`);
     const data = (await response.json()) as Visualization;
     return data;
   },

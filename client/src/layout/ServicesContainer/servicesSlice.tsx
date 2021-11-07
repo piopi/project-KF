@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+const url = process.env.REACT_APP_API_URL || '';
 export interface Service {
   serviceId: number;
   name: string;
@@ -11,7 +12,7 @@ const initialState = {
   status: 'idle',
 };
 export const fetchServices = createAsyncThunk('services/fetchServices', async () => {
-  const response = await fetch(`http://localhost:3001/api/services`);
+  const response = await fetch(`${url}/api/services`);
   const data = (await response.json()) as Service[];
   return data;
 });
