@@ -43,7 +43,7 @@ const VisualizationContainer = () => {
         <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="xl" />
       ) : (
         <Heading id="visualizations" as="h1" fontSize="1.2rem">
-          Existing Data Sources
+          Recommended Visualizations
         </Heading>
       )}
       <Grid templateColumns="repeat(auto-fill,220px)" gap={6}>
