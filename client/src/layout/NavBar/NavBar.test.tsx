@@ -2,7 +2,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import MatchMediaMock from 'jest-matchmedia-mock';
 import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
 import NavBar from './NavBar';
+import store from '../../store/store';
 
 let matchMedia: MatchMediaMock;
 beforeAll(() => {
@@ -14,7 +16,11 @@ afterEach(() => {
 });
 
 test('Render nav bar', () => {
-  render(<NavBar />);
+  render(
+    <Provider store={store}>
+      <NavBar />
+    </Provider>,
+  );
   const placeholder = screen.getByPlaceholderText('Keyword');
   expect(placeholder).toBeInTheDocument();
   const logo = screen.getByAltText('Logo');
@@ -22,7 +28,11 @@ test('Render nav bar', () => {
 });
 
 test('can Search Menu  open and close', () => {
-  render(<NavBar />);
+  render(
+    <Provider store={store}>
+      <NavBar />
+    </Provider>,
+  );
   // Open Menu
   userEvent.click(screen.getByPlaceholderText('Keyword'));
   const searchMenu = screen.getByTestId('searchMenu');
