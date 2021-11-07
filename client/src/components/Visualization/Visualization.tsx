@@ -50,7 +50,7 @@ const Visualization = ({ name, currency, data }: Props) => {
             <Text textTransform="uppercase" lineHeight="1" isTruncated fontWeight="500" fontSize="1.1rem">
               {name}
             </Text>
-            <Text position="relative" lineHeight="1" isTruncated mt="25px" fontWeight="700" fontSize="1.45rem">
+            <Text position="relative" lineHeight="1" isTruncated mt="25px" fontWeight="700" fontSize="1.3rem">
               {currency === '$' && (
                 <Text position="absolute" fontSize="1rem" as="span">
                   $
