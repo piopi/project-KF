@@ -4,7 +4,10 @@ const db: Sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://user
   logging: false,
   dialect: 'postgres',
   dialectOptions: {
-    ssl: true
+    ssl: {
+      require: true,
+      rejectUnauthorized: false // <<<<<<< YOU NEED THIS
+    }
   },
 });
 
