@@ -41,7 +41,7 @@ This is a project assessment of my full stack skills for Klipfolio. In this proj
 * [Chakra-UI](https://chakra-ui.com/)
 * [Redux](https://redux.js.org/)
 * [NodeJS](https://nodejs.org/en/)
-* [Express](https://www.express.com/)
+* [Express](https://expressjs.com/)
 * [PostgreSQL](https://www.postgresql.org/)
 * [Docker](https://www.docker.com/)
 
