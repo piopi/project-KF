@@ -8,6 +8,7 @@ services:
     environment:
       DATABASE_URL: postgres://user:pass@postgres:5432/dashboard
       CHOKIDAR_USEPOLLING: "true" # Allow hot reloading in container
+      TYPE_ENV: "Dev"
     ports:
       - "3001:3001"
     volumes:
