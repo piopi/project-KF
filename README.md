@@ -1,5 +1,6 @@
 # project-KF
 [![CI/CD pipeline](https://github.com/piopi/project-KF/actions/workflows/push.yml/badge.svg?branch=main)](https://github.com/piopi/project-KF/actions/workflows/push.yml)
+[![Deploy](https://github.com/piopi/project-KF/actions/workflows/deploy.yml/badge.svg)](https://github.com/piopi/project-KF/actions/workflows/deploy.yml)
 ## Running Application Locally
 
 ### Requirement:
